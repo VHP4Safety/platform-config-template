@@ -1,0 +1,148 @@
+name: Generate Method JSON from Issue Template
+
+on:
+  issues:
+    types: [labeled]
+
+# The files of this workflow are in cloud/.
+defaults:
+  run:
+    working-directory: cloud
+
+jobs:
+  generate-json:
+    if: contains(github.event.label.name, 'method') || contains(github.event.label.name, 'method')
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install requests pyyaml
+
+    - name: Fetch issue content and parse template
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ISSUE_NUMBER: ${{ github.event.issue.number }}
+      run: |
+        python - <<'EOF'
+        import os, json, re, requests, datetime
+
+        issue_number = os.environ['ISSUE_NUMBER']
+        repo = os.environ['GITHUB_REPOSITORY']
+
+        headers = {'Authorization': f'token {os.environ["GITHUB_TOKEN"]}'}
+        url = f'https://api.github.com/repos/{repo}/issues/{issue_number}'
+        
+        try:
+            r = requests.get(url, headers=headers)
+            r.raise_for_status()
+            issue_data = r.json()
+            body = issue_data['body']
+            title = issue_data['title']
+        except Exception as e:
+            print(f"Error fetching issue: {e}")
+            exit(1)
+
+        fields = {
+            'id': f'method-{issue_number}',
+            'method': title,
+            'issue_number': int(issue_number)
+        }
+        
+        # Parse issue body with improved regex patterns
+        current_section = None
+        for line in body.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+                
+            # Handle section headers
+            if line.startswith('###') or line.startswith('##'):
+                current_section = line.lstrip('#').strip().lower().replace(' ', '_')
+                continue
+                
+            # Handle key-value pairs with various formats
+            patterns = [
+                r'^\*\*([^*]+)\*\*:\s*(.+)$',  # **Key**: Value
+                r'^([^:]+):\s*(.+)$',          # Key: Value
+                r'^-\s*([^:]+):\s*(.+)$'       # - Key: Value
+            ]
+            
+            matched = False
+            for pattern in patterns:
+                match = re.match(pattern, line)
+                if match:
+                    key, value = match.groups()
+                    key = key.strip().lower().replace(' ', '_').replace('-', '_')
+                    value = value.strip()
+                    
+                    # Skip empty values and placeholders
+                    if value and value not in ['N/A', 'n/a', 'TBD', 'tbd', '...', '_No response_']:
+                        fields[key] = value
+                    matched = True
+                    break
+            
+            # Handle URLs that might be on separate lines
+            if line.startswith('http') and current_section:
+                url_key = f'{current_section}_url'
+                fields[url_key] = line
+                continue
+            
+            # If we're in a section and no key-value match, treat as content
+            if not matched and current_section and line and not line.startswith('http'):
+                section_key = f'{current_section}_content'
+                if section_key not in fields:
+                    fields[section_key] = line
+                else:
+                    fields[section_key] += f' {line}'
+
+        # Generate proper ID from method name
+        method_name = fields.get('method_name_content', fields.get('method', ''))
+        if method_name:
+            # Clean the method name to create ID
+            clean_name = method_name.replace('[METHOD]: ', '').strip()
+            method_id = clean_name.lower().replace(' ', '_').replace('-', '_')
+            # Remove special characters
+            method_id = re.sub(r'[^a-z0-9_]', '', method_id)
+            fields['id'] = method_id
+
+        fields['timestamp'] = datetime.datetime.utcnow().isoformat() + 'Z'
+
+        # Validate required fields
+        if 'method' not in fields or not fields['method']:
+            print("Error: No method name found in issue")
+            exit(1)
+
+        os.makedirs('docs/methods', exist_ok=True)
+        file_path = f'docs/methods/{fields["id"]}.json'
+        with open(file_path, 'w') as f:
+            json.dump(fields, f, indent=2)
+        print(f"Saved JSON to {file_path}")
+        print(f"Parsed fields: {list(fields.keys())}")
+        EOF
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Add method JSON for issue #${{ github.event.issue.number }}"
+        branch: "method-${{ github.event.issue.number }}"
+        title: "Add method JSON for issue #${{ github.event.issue.number }}"
+        body: |
+          This PR adds the method JSON file generated from issue #${{ github.event.issue.number }}.
+          
+          **Auto-generated from issue:** #${{ github.event.issue.number }}
+          **File created:** `cloud/docs/methods/{method_id}.json`
+          
+          Please review the generated JSON file and make any necessary adjustments before merging.
+        base: main
+        delete-branch: true

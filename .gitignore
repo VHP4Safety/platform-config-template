@@ -1,0 +1,6 @@
+# glossary
+rdfa2tsv.py
+# cloud: R session history of the catalog scripts
+**/.Rhistory
+*.log
+.claude

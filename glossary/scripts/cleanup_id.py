@@ -1,0 +1,83 @@
+import os
+import sys
+import glob
+import subprocess
+
+def ids_in_branches():
+    """VXP IDs in the templates of all fetched remote branches (e.g. terms added in an open pull request)."""
+    refs = subprocess.run(['git', 'for-each-ref', '--format=%(refname)', 'refs/remotes/origin'],
+                          capture_output=True, text=True).stdout.split()
+    if not refs:
+        return set()
+    found = subprocess.run(['git', 'grep', '-h', '-o', '-E', 'VXP[0-9]{7}', *refs, '--', 'templates/*.tsv'],
+                           capture_output=True, text=True).stdout
+    return set(found.split())
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: cleanup_vxp_id.py <vxp_id>")
+        sys.exit(1)
+    
+    vxp_id = sys.argv[1]
+    cache_file = '.vxp-cache/vxp-ids.txt'
+    
+    if not vxp_id or vxp_id == 'null':
+        print("No VXP ID provided")
+        sys.exit(0)
+    
+    # Check if ID appears in any template tables
+    id_in_templates = False
+    for template_file in glob.glob('templates/**/*.tsv', recursive=True):
+        try:
+            with open(template_file, 'r') as f:
+                lines = f.readlines()
+                if not lines:
+                    continue
+                
+                # Parse TSV header to find ID column
+                header = lines[0].strip().split('\t')
+                id_column_index = None
+                for i, col in enumerate(header):
+                    if col == 'ID':
+                        id_column_index = i
+                        break
+                
+                if id_column_index is not None:
+                    # Check if VXP ID is in the ID column
+                    for line in lines[1:]:  # Skip header
+                        columns = line.strip().split('\t')
+                        if len(columns) > id_column_index:
+                            cell_value = columns[id_column_index].strip()
+                            if cell_value == vxp_id:
+                                id_in_templates = True
+                                print(f"ID {vxp_id} found in {template_file}")
+                                break
+                
+                if id_in_templates:
+                    break
+        except Exception as e:
+            print(f"Error reading {template_file}: {e}")
+    
+    # Keep the reservation if another branch already uses the ID
+    if not id_in_templates and vxp_id in ids_in_branches():
+        id_in_templates = True
+        print(f"ID {vxp_id} found in another branch")
+
+    # If ID not in templates, remove from cache
+    if not id_in_templates and os.path.exists(cache_file):
+        with open(cache_file, 'r') as f:
+            cached_ids = set(line.strip() for line in f if line.strip())
+        
+        if vxp_id in cached_ids:
+            cached_ids.remove(vxp_id)
+            with open(cache_file, 'w') as f:
+                for id_str in sorted(cached_ids):
+                    f.write(f"{id_str}\n")
+            print(f"Removed {vxp_id} from cache")
+        else:
+            print(f"ID {vxp_id} not found in cache")
+    else:
+        print(f"ID {vxp_id} is in use in templates, keeping in cache")
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,36 @@
+{
+  "id": "demo_tool",
+  "service": "Demo Tool",
+  "description": "A demo tool to show how tools are listed in the Virtual X Platform. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "stage": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary#VXP0000005",
+  "substage": "",
+  "screenshot": "demo_tool.png",
+  "url": "https://example.org/demo-tool",
+  "doi": "",
+  "release_notes": "",
+  "developed-by-project": "true",
+  "instance": {
+    "type": "internal",
+    "platform": "development",
+    "url": "https://example.org/demo-tool",
+    "license": "MIT",
+    "version": "0.1.0",
+    "source": "https://github.com/YOUR-ORG/demo-tool"
+  },
+  "provider": {
+    "contact": {
+      "name": "Lorem Ipsum",
+      "email": "lorem.ipsum@example.org",
+      "partner": "Example University"
+    },
+    "name": "Example University",
+    "url": "https://example.org/"
+  },
+  "access": {
+    "API": "REST",
+    "login": "no"
+  },
+  "regulatory-question": {
+    "1a": "true"
+  }
+}

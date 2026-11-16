@@ -1,0 +1,14 @@
+{
+  "demo_tool": {
+    "id": "demo_tool",
+    "service": "Demo Tool",
+    "description": "A demo tool to show how tools are listed in the Virtual X Platform. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "html_name": "demo_tool.html",
+    "md_file_name": "demo_tool.md",
+    "png_file_name": "demo_tool.png",
+    "stage": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary#VXP0000005",
+    "main_url": "https://example.org/demo-tool",
+    "inst_url": "https://example.org/demo-tool",
+    "reg_q_1a": "true"
+  }
+}

@@ -1,0 +1,153 @@
+
+{
+"_instructions1": "This is a template for JSON files that can provide a standard way to add new services to the cloud catalog, maintained with this repository.",
+
+"_instructions2": "Please create a new JSON file to add a new service to the catalog. While creating that file based on this template, please consider the comments below to fill the items to have a standard representation of services. Please feel free to raise an issue or give feedback for the template in the issues section (https://github.com/YOUR-ORG/virtual-x-platform-config/issues) of this repository.",
+
+
+  "_ins_id": "An id for the JSON file, needs to be the same name as this JSON file.",
+  "id": "",
+
+  "_ins_service": "// The (stylized) name of the service which will be shown as the name of the service in the catalog.",
+  "service": "",
+
+  "_ins_description": "A short description for the service.",
+  "description": "",
+
+  "_ins_stage": "The IRI of a Process Flow Step in the glossary, e.g. https://YOUR-ORG.github.io/virtual-x-platform-config/glossary#VXP0000004",
+  "stage": "",
+
+  "_ins_substage": "Substage for the category",
+  "substage": "",
+
+  "_ins_screenshot": "The name of the file for the service logo, needs to be the same name as the service id but with a different extension.",
+  "screenshot": "",
+
+  "_ins_url": "The original URL to the service.",
+  "url": "",
+
+  "_ins_doi": "The DOI of the document (article, preprint, etc.) related to the service.",
+  "doi": "",
+
+  "_ins_release_notes": "A url where there are release notes regarding the service.",
+  "release_notes": "",
+
+  "_ins_developed-by-project": "Whether the service was developed by a partner of the project. Answer 'true' or 'false'.",
+  "developed-by-project": "",
+
+  "instance": {
+
+    "_ins_deployment_docs": "Where are the deployment instructions located?",
+    "deployment_docs": "",
+
+    "_ins_type": "Whether the instance 'internal' or 'external'",
+    "type": "",
+
+    "_ins_platform": "Whether the instance is running on the 'development' or 'production' platform, or is 'external'.",
+    "platform": "",
+
+    "_ins_url": "URL to the service instance running on our servers.",
+    "url": "",
+
+    "license": "",
+    "version": "",
+
+    "ins_source": "Link to the source material of the service.",
+    "source": "",
+
+    "_ins_docker": "Link to the repository with service's Docker container.",
+    "docker": "",
+
+    "_ins_TRL": "Technology Readiness Level. For details, please see: https://en.wikipedia.org/wiki/Technology_readiness_level",
+    "TRL": ""
+  },
+
+  "provider": {
+    "contact": {
+      "_ins_name": "The name of a person from the organization that provide the service. More than one contact information can be provided by putting a ';' between their names (e.g. author1;author2). Please be careful to give an email address for each contact person in the next field, otherwise the contact information may not be displayed correctly.",
+      "name": "",
+      "_ins_email": "The email(s) of the person(s) whose name(s) given above. More than one contact information can be provided by putting a ';' between their email addresses (e.g. author1@mail.com;author2@mail.com). Please be careful to give an email address for each contact person in the previous field, otherwise the contact information may not be displayed correctly.",
+      "email": "",
+
+      "_ins_partner": "The partner organisation(s) of the project that developed the service. Multiple partners separated by ';' without spaces (e.g., partner1;partner2). Leave empty for services not developed by a project partner.",
+      "partner": ""
+    },
+
+    "_ins_name": "The name of the organization that provide the service.",
+    "name": "",
+    "_ins_url": "An URL to the organization that provide the service.",
+    "url": ""
+  },
+
+  "_ins_access": "Information regarding the remote use of the service.",
+  "access": {
+    "_ins_API": "The type of API, if available.",
+    "API": "",
+
+    "_ins_login": "Whether the API requires authenication.",
+    "login": "",
+
+    "packages": {
+      "R": "",
+      "Python": ""
+    }
+  },
+
+  "_ins_intro": "Information regarding an available demo documentation available on the docs repo.",
+  "intro": {
+    "_ins_title": "The title of the intro on the platform. Multiple entries should be separated by a ';' without any spaces between them (e.g., title1;title2). Note that, ideally, the number of titles should be equal to the number of urls.",
+    "title": "",
+    "_ins_url": "Link to the intro on the platform. Multiple entries should be separated by a ';' without any spaces between them (e.g., link1;link2). Note that, ideally, the number of titles should be equal to the number of urls.",
+    "url": ""
+  },
+
+  "_ins_peertube": "Video on the SURF PeerTube platform.",
+  "peertube": {
+    "_ins_title": "The title of the video.",
+    "title": "",
+    "_ins_url": "Only one URL allowed, e.g. https://video.edu.nl/videos/embed/mXiqzVCSYytLb4i2YgT7a6",
+    "url": ""
+  },
+
+  "demo": {
+    "_ins_title": "The title of the demo?",
+    "title": "",
+    "_ins_url": "The link to the demo?",
+    "url": ""
+  },
+
+  "workflow": {
+    "_ins_title": "The title of the workflow where it is being used. Multiple entries should be separated by a ';' without any spaces between them. Note that, ideally, the number of titles should be equal to the number of urls.",
+    "title": "",
+    "_ins_url": "Link to the workflow. Multiple entries should be separated by a ';' without any spaces between them. Note that, ideally, the number of titles should be equal to the number of urls.",
+    "url": ""
+  },
+
+  "_ins_ELIXIR": "Information regarding sources available on ELIXIR.",
+  "ELIXIR": {
+    "_ins_biotools": "The keyword for the link to the source on bio.tools.",
+    "biotools": "",
+
+    "_ins_tess": "The keyword for a search link to the source on ELIXIR TeSS (https://tess.elixir-europe.org/).",
+    "tess": "",
+
+    "_ins_fairsharing": "The DOI for the entry on FAIRsharing.org",
+    "fairsharing": ""
+  },
+
+  "Other": {
+    "_ins_wikipedia": "Wikipedia page",
+    "wikipedia": "",
+    "_ins_rsd": "Dutch Research Software Directory.",
+    "rsd": ""
+  },
+
+
+  "_ins_regulatory-question": "Whether the service is relevant to the questions of the use cases. The keys are the 'id' of the questions in the use case repository: the number of the use case plus the letter of the question. Answer either 'true' or 'false'.",
+  "regulatory-question": {
+    "_cs_1": "Demo use case",
+
+    "_ins_1a": "1a: Lorem ipsum dolor sit amet?",
+    "1a": ""
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.1/context",
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
+      },
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "name": "Virtual X Platform Use Cases",
+      "description": "Configuration data for the use cases of the Virtual X Platform, used to drive the use case pages of the platform.",
+      "datePublished": "2026-11-16",
+      "dateModified": "2026-11-16",
+      "version": "0.1.0",
+      "url": "https://github.com/YOUR-ORG/virtual-x-platform-config/tree/main/casestudies",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "mentions": {
+        "@id": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/"
+      },
+      "keywords": [
+        "Virtual X Platform",
+        "use case",
+        "demo"
+      ],
+      "hasPart": [
+        {
+          "@id": "demo_content.json"
+        },
+        {
+          "@id": "Images/"
+        },
+        {
+          "@id": "README.md"
+        }
+      ]
+    },
+    {
+      "@id": "demo_content.json",
+      "@type": "File",
+      "name": "Demo use case",
+      "description": "To demonstrate how a use case is defined. Lorem ipsum dolor sit amet.",
+      "identifier": "demo",
+      "encodingFormat": "application/json",
+      "keywords": [
+        "demo",
+        "lorem ipsum"
+      ],
+      "contentUrl": "https://raw.githubusercontent.com/YOUR-ORG/virtual-x-platform-config/refs/heads/main/casestudies/demo_content.json"
+    },
+    {
+      "@id": "Images/",
+      "@type": "Dataset",
+      "name": "Use case images",
+      "description": "Figures referenced from the use case content.",
+      "hasPart": [
+        {
+          "@id": "Images/demo_workflow.png"
+        }
+      ]
+    },
+    {
+      "@id": "Images/demo_workflow.png",
+      "@type": [
+        "File",
+        "ImageObject"
+      ],
+      "name": "Demo workflow figure",
+      "encodingFormat": "image/png"
+    },
+    {
+      "@id": "README.md",
+      "@type": "File",
+      "name": "README",
+      "encodingFormat": "text/markdown"
+    },
+    {
+      "@id": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/",
+      "@type": "DefinedTermSet",
+      "name": "Virtual X Platform Glossary",
+      "description": "Controlled vocabulary of terms used across the project, including the process flow steps referenced by each use case.",
+      "url": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/"
+    },
+    {
+      "@id": "https://creativecommons.org/licenses/by/4.0/",
+      "@type": "CreativeWork",
+      "name": "Creative Commons Attribution 4.0 International",
+      "identifier": "CC-BY-4.0"
+    }
+  ]
+}

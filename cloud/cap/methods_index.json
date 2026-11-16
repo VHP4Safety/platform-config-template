@@ -1,0 +1,21 @@
+{
+  "demo_method": {
+    "id": "demo_method",
+    "method": "Demo Method",
+    "issue_number": 1,
+    "sop": "https://example.org/demo-method-protocol",
+    "method_name_content": "Demo Method",
+    "data_producer_content": "Example University",
+    "method_description_content": "A demo method to show how methods are listed in the Virtual X Platform. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "type_content": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary#VXP0000010",
+    "vendor_content": "Example Vendor",
+    "catalog_number_content": "R001",
+    "catalog_webpage_url": "https://example.org/catalog/R001",
+    "citation_content": "https://en.wikipedia.org/wiki/Lorem_ipsum",
+    "workflow_stage_content": "Lorem",
+    "workflow_substage_content": "Lorem substage",
+    "regulatory_question": "reg_q_1a",
+    "case_study": "demo",
+    "timestamp": "2026-11-16T12:00:00Z"
+  }
+}

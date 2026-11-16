@@ -1,0 +1,62 @@
+name: Ontology Term Request
+description: Report a term missing in the ontology
+title: "[TERM REQUEST] Please add this glossary term"
+labels: ["categorization"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a term for the Virtual X Platform Glossary! Please provide the following information:
+
+  - type: input
+    id: label
+    attributes:
+      label: Label
+      description: What would be a label for the terms to categorize the entries in the glossary?
+      placeholder: e.g., Lorem ipsum
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Labels are used for categorizating the entries in the glossary, e.g., general terms, tools, chemicals, etc.
+
+  - type: input
+    id: definition
+    attributes:
+      label: Definition
+      description: What is the definition of the term?
+      placeholder: e.g., Placeholder text commonly used to demonstrate the visual form of a document.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        A clear and concise definition of what you want to happen.
+
+  - type: input
+    id: acronym
+    attributes:
+      label: Acronym
+      description: What is the definition of the term?
+      placeholder: e.g., LI
+
+  - type: input
+    id: ontology
+    attributes:
+      label: Ontology
+      description: Is there an ontology that has this term?
+  - type: markdown
+    attributes:
+      value: |
+        If there is an ontology that has an entry that matches your, please report here which ontology that is, and what the ontology identifier of that term is.
+
+  - type: input
+    id: context
+    attributes:
+      label: Context
+      description: Additional context
+  - type: markdown
+    attributes:
+      value: |
+        Add any other context or information about the term request here.

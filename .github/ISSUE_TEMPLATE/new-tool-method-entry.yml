@@ -1,0 +1,93 @@
+name: New Method Catalogue Entry
+description: Request to add a new method to the catalogue
+title: "[METHOD]: "
+labels: ["method"]
+
+# The labels of the fields below become the keys of the method JSON file:
+# "Workflow stage" is stored as "workflow_stage_content" (or "..._url" when the
+# answer is a URL). Changing a label therefore changes the JSON key; see
+# misc/generate_methods_metadata.py and .github/method_template.md.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the form as completely as possible. Empty fields can be filled out later.
+  - type: input
+    id: name
+    attributes:
+      label: Method name
+      description: The method can be a model, an assay, a protocol, etc.
+  - type: input
+    id: data_producer
+    attributes:
+      label: Data producer
+      description: Who generated the data?
+  - type: input
+    id: sop
+    attributes:
+      label: Available SOP or protocol
+      description: URL to an existing standard operating procedure or protocol
+  - type: input
+    id: description
+    attributes:
+      label: Method description
+      description: A brief description of the method
+  - type: dropdown
+    id: use_case
+    attributes:
+      label: Use case
+      description: The identifier of the use case, as listed in the use case repository.
+      multiple: true
+      options:
+       - demo
+  - type: dropdown
+    id: use_case_question
+    attributes:
+      label: Use case question
+      description: The identifier of the use case question (use case number plus question letter).
+      multiple: true
+      options:
+       - 1a
+  - type: input
+    id: type_iri
+    attributes:
+      label: Ontology term
+      description: Glossary, ontology, or controlled vocabulary term IRI. Look up your term in the [Ontology Lookup Service](https://www.ebi.ac.uk/ols4/) or the [Glossary](https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/). Leave blank if unavailable.
+  - type: markdown
+    attributes:
+      value: |
+        ## Specification
+  - type: input
+    id: vendor
+    attributes:
+      label: Vendor
+      description: Vendor or provider of the method
+  - type: input
+    id: catalog_number
+    attributes:
+      label: Catalog number
+      description: Catalog entry for the method
+      placeholder: e.g., R001
+  - type: input
+    id: catalog
+    attributes:
+      label: Catalog webpage
+  - type: input
+    id: citation
+    attributes:
+      label: Citation
+      description: DOI or URL to a publication or SOP describing the method
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Workflow stage
+      description: The process flow step from the glossary.
+      multiple: true
+      options:
+       - Lorem
+       - Ipsum
+       - Dolor
+  - type: input
+    id: substage
+    attributes:
+      label: Workflow substage

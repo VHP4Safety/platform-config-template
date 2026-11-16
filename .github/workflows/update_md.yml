@@ -1,0 +1,52 @@
+name: update_md
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    paths:
+      - glossary/templates/*
+      - glossary/index_template.md
+
+# The files of this workflow are in glossary/.
+defaults:
+  run:
+    working-directory: glossary
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for a proper pull
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install wheel setuptools pip --upgrade
+          pip install pandas
+
+      - name: Extract template data
+        run: |
+          python scripts/template_to_md.py
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --exit-code index.md || echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
+
+      - name: Commit and push changes
+        if: env.CHANGES_DETECTED == 'true' && github.event_name != 'pull_request'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.md
+          git commit -m "Updated glossary page"
+          git pull --rebase
+          git push

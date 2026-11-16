@@ -1,0 +1,54 @@
+name: extract-owl
+
+on:
+  workflow_run:
+    workflows: ["update_md"]
+    types:
+      - completed
+  workflow_dispatch:
+
+# The files of this workflow are in glossary/.
+defaults:
+  run:
+    working-directory: glossary
+
+jobs:
+  build:
+    # skip when update_md failed: index.md may not match the templates
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch || github.ref_name }}
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
+      - name: Cache Grape dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.groovy/grapes
+          key: grapes-${{ hashFiles('glossary/extractOWL.groovy') }}
+          restore-keys: grapes-
+      - name: Install dependencies
+        run: sudo apt install groovy pandoc
+      - name: Extract OWL
+        run: |
+          set -o pipefail
+          # render index.md to HTML as a temporary file (raw HTML tables kept as is, page language set)
+          pandoc index.md -f gfm -t html5 -s -M lang=en-US -M pagetitle="Virtual X Platform Glossary" -o "$RUNNER_TEMP/glossary.html"
+          groovy extractOWL.groovy "$RUNNER_TEMP/glossary.html" | tee glossary.owl
+      - name: Commit OWL file
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git diff --quiet glossary.owl || git commit -m "Updated OWL" glossary.owl
+      - name: Push changes
+        if: github.event_name != 'pull_request'
+        run: |
+         git pull origin ${{ github.event.workflow_run.head_branch || github.ref_name }} --rebase
+         git push -f origin ${{ github.event.workflow_run.head_branch || github.ref_name }}
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

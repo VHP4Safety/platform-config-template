@@ -1,0 +1,66 @@
+name: Generate Method Documentation with Mustache
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cloud/docs/methods/*.json'
+      - 'cloud/method_template.md'
+      - '.github/workflows/generate_method_markdown.yml'
+  pull_request:
+    paths:
+      - 'cloud/docs/methods/*.json'
+      - 'cloud/method_template.md'
+      - '.github/workflows/generate_method_markdown.yml'
+
+# The files of this workflow are in cloud/.
+defaults:
+  run:
+    working-directory: cloud
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install mustache CLI
+        run: npm install -g mustache
+
+      - name: Generate method documentation
+        run: |
+          for json_file in docs/methods/*.json; do
+            if [ -f "$json_file" ]; then
+              basename=$(basename "$json_file" .json)
+              
+              # Validate JSON
+              jq empty "$json_file" || { echo "Invalid JSON: $json_file"; exit 1; }
+
+              # Generate markdown using mustache template
+              mustache "$json_file" method_template.md > "docs/methods/${basename}.md"
+              
+              echo "Generated docs/methods/${basename}.md"
+            fi
+          done
+
+      - name: Commit and push generated documentation
+        # A pull_request checkout is a detached merge commit, so there is no branch to push to.
+        if: github.event_name != 'pull_request'
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git pull
+          git add docs/methods/*.md
+          if git diff --exit-code --staged; then
+            echo "No changes to commit"
+          else
+            git commit -m 'Generate method documentation from JSON files'
+            git push
+          fi

@@ -1,0 +1,7 @@
+ID	Term	Abbreviation	Definition	related_to	ref
+VXP0000001	Process Flow Step		One of the generic stages of the workflow of the Virtual X Platform, used to structure tools, methods, data and use cases. Lorem ipsum dolor sit amet, consectetur adipiscing elit.		
+VXP0000002	Use Case	UC	A scenario that guides the integration of tools, methods and data in the Virtual X Platform, and for which one or more questions are formulated. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.		
+VXP0000003	Use Case Question	UCQ	A concrete question, formulated for a given use case, that the Virtual X Platform should help to answer step-by-step. Ut enim ad minim veniam, quis nostrud exercitation ullamco.		
+VXP0000004	Lorem (<i>Process Flow Step</i>)		The first demo process flow step. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.	https://YOUR-ORG.github.io/virtual-x-platform-config/glossary#VXP0000007	
+VXP0000005	Ipsum (<i>Process Flow Step</i>)		The second demo process flow step. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.		
+VXP0000006	Dolor (<i>Process Flow Step</i>)		The third demo process flow step. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.		

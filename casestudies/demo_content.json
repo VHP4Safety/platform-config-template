@@ -1,0 +1,144 @@
+{
+  "step1Contents": {
+    "navTitle": "Demo Use Case",
+    "navDescription": "One question for the demo use case. Choose it to explore or scroll for an overview.",
+    "questions": [
+      {
+        "label": "Question 1: Lorem ipsum",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit?",
+        "value": "Q1",
+        "id": "1a",
+        "type": "regulatory-question"
+      }
+    ],
+    "content": [
+      {
+        "headingType": "h2",
+        "section": "About this demo use case",
+        "description": "This is a placeholder use case that shows how a use case is structured: a use case has one or more questions, each question is answered by following the process flow steps, and each step links to the tools, methods, and data that are used. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      {
+        "headingType": "p",
+        "section": "Lorem ipsum",
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      }
+    ]
+  },
+  "step2Contents": {
+    "Q1": {
+      "navTitle": "Process flow steps (Q1)",
+      "navDescription": "Follow these steps for the question: Lorem ipsum dolor sit amet, consectetur adipiscing elit? Click a button or scroll for more info.",
+      "steps": [
+        {
+          "label": "Lorem",
+          "value": "Lorem",
+          "glossaryUrl": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/#VXP0000004",
+          "type": "process-flow-step"
+        },
+        {
+          "label": "Ipsum",
+          "value": "Ipsum",
+          "glossaryUrl": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/#VXP0000005",
+          "type": "process-flow-step"
+        },
+        {
+          "label": "Dolor",
+          "value": "Dolor",
+          "glossaryUrl": "https://YOUR-ORG.github.io/virtual-x-platform-config/glossary/#VXP0000006",
+          "state": "disabled",
+          "type": "process-flow-step"
+        }
+      ],
+      "content": [
+        {
+          "headingType": "h2",
+          "section": "Overview of the workflow",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<img src='https://raw.githubusercontent.com/YOUR-ORG/virtual-x-platform-config/refs/heads/main/casestudies/Images/demo_workflow.png' alt='Demo workflow figure' style='width:800px; max-width:100%; height:auto; display:block; margin:12px 0;'/>"
+        },
+        {
+          "headingType": "p",
+          "section": "Disabled steps",
+          "description": "The step <i>Dolor</i> has the state <code>disabled</code>: it is shown, but cannot be selected. Use this for steps that are not relevant for a question or not worked out yet."
+        }
+      ]
+    }
+  },
+  "step3Contents": {
+    "Q1": {
+      "Lorem": {
+        "navTitle": "Lorem",
+        "navDescription": "A process flow step that is divided into workflow steps.",
+        "steps": [
+          {
+            "label": "Demo workflow step",
+            "value": "Demo workflow step",
+            "type": "workflow step"
+          }
+        ],
+        "content": [
+          {
+            "headingType": "h2",
+            "section": "Description",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+          },
+          {
+            "headingType": "h2",
+            "section": "Input and resulting output",
+            "description": "<ul><li><strong>Input:</strong> Lorem ipsum</li><li><strong>Output:</strong> Dolor sit amet</li></ul>"
+          }
+        ]
+      },
+      "Ipsum": {
+        "navTitle": "Ipsum - Tools and Methods",
+        "navDescription": "A process flow step that directly lists its tools and methods.",
+        "tools": [
+          {
+            "label": "Demo Tool",
+            "description": "A demo tool from the tool catalog",
+            "id": "demo_tool",
+            "type": "tool"
+          },
+          {
+            "label": "Demo Method",
+            "description": "A demo method from the method catalog",
+            "id": "demo_method",
+            "route": "methods",
+            "type": "tool"
+          }
+        ],
+        "content": [
+          {
+            "headingType": "h2",
+            "section": "Description",
+            "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          }
+        ]
+      }
+    }
+  },
+  "step4Contents": {
+    "Q1": {
+      "Lorem": {
+        "Demo workflow step": {
+          "navTitle": "Demo workflow step",
+          "navDescription": "The tools that are used in this workflow step.",
+          "steps": [
+            {
+              "label": "Demo Tool",
+              "description": "A demo tool from the tool catalog",
+              "id": "demo_tool",
+              "type": "tool"
+            }
+          ],
+          "content": [
+            {
+              "headingType": "h2",
+              "section": "Description",
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            }
+          ]
+        }
+      }
+    }
+  }
+}
